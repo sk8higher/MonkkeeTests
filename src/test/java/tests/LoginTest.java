@@ -14,7 +14,6 @@ import pages.LoginPage;
 public class LoginTest {
     private WebDriver driver;
     private LoginPage loginPage;
-    private ChromeOptions options;
 
     @BeforeTest
     public static void beforeTest() {
@@ -23,6 +22,7 @@ public class LoginTest {
 
     @BeforeMethod
     public void beforeMethod() {
+        ChromeOptions options = new ChromeOptions();
         options.addArguments( "--no-sandbox", "--headless", "--disable-gpu");
         driver = new ChromeDriver(options);
         driver.get("https://my.monkkee.com/#/");
