@@ -7,8 +7,8 @@ import org.openqa.selenium.support.PageFactory;
 
 public class LoginPage {
     public WebDriver driver;
-    private String EMAIL = System.getenv("MONKKEE_EMAIL");
-    private String PASSWORD = System.getenv("MONKKEE_PASSWORD");
+    private final String EMAIL = System.getenv("MONKKEE_EMAIL");
+    private final String PASSWORD = System.getenv("MONKKEE_PASSWORD");
 
     @FindBy(id = "login")
     private WebElement usernameField;
