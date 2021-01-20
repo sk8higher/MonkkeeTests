@@ -14,8 +14,10 @@ import java.util.Properties;
 
 public class LoginPage {
     public WebDriver driver;
+
     private Properties prop = GetProperties.readFile();
     private Wait<WebDriver> wait;
+
     private final String EMAIL = prop.getProperty("email");
     private final String PASSWORD = prop.getProperty("password");
 
