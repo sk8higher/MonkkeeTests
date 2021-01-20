@@ -7,12 +7,16 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import utils.GetProperties;
+
+import java.util.Properties;
 
 public class LoginPage {
     public WebDriver driver;
+    private Properties prop = GetProperties.readFile();
     private Wait<WebDriver> wait;
-    private final String EMAIL = System.getenv("MONKKEE_EMAIL");
-    private final String PASSWORD = System.getenv("MONKKEE_PASSWORD");
+    private final String EMAIL = prop.getProperty("email");
+    private final String PASSWORD = prop.getProperty("password");
 
     @FindBy(id = "login")
     private WebElement usernameField;

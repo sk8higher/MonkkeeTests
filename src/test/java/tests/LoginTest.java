@@ -16,7 +16,7 @@ public class LoginTest {
     private LoginPage loginPage;
 
     @BeforeTest
-    public static void beforeTest() {
+    public void beforeTest() {
         WebDriverManager.chromedriver().setup();
     }
 
