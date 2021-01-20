@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -24,11 +25,11 @@ public class LoginPage {
     @FindBy(id = "password")
     private WebElement passwordField;
 
-    @FindBy(className = "btn-primary")
+    @FindBy(xpath = "//*[@id='main']/div/div[2]/div[1]/div/div/form/div[4]/div/button/div")
     private WebElement loginButton;
 
     public LoginPage(WebDriver driver) {
-        PageFactory.initElements(driver, this);
+        PageFactory.initElements(new AjaxElementLocatorFactory(driver, 2), this);
         this.driver = driver;
     }
 
