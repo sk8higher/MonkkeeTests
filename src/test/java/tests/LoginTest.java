@@ -4,11 +4,11 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Wait;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import org.testng.annotations.*;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
 import pages.LoginPage;
 
 public class LoginTest {
@@ -30,15 +30,11 @@ public class LoginTest {
 
     @Test(description = "Login test")
     public void loginTest() {
-        Wait<WebDriver> wait = new WebDriverWait(driver, 5, 1000);
-
         loginPage = new LoginPage(driver);
 
         loginPage.enterUsername()
                  .enterPassword()
                  .login();
-
-        wait.until(ExpectedConditions.urlMatches("https://my.monkkee.com/#/entries")); // explicit waiting for page to load
 
         Assert.assertEquals(driver.getCurrentUrl(), "https://my.monkkee.com/#/entries");
     }
