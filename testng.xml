@@ -1,6 +1,13 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
 <suite name="MonkkeeTests">
-    <test name="LoginTest">
+    <test name="ChromeTests">
+        <parameter name="browser" value="Chrome"/>
+        <classes>
+            <class name="tests.LoginTest"/>
+        </classes>
+    </test>
+    <test name="FirefoxTests">
+        <parameter name="browser" value="Firefox"/>
         <classes>
             <class name="tests.LoginTest"/>
         </classes>
