@@ -48,8 +48,10 @@ public class LoginPage extends BasePage {
         try {
             WebElement cancelButton = driver.findElement(By.xpath("//button[@custom-modal-close='login()']//div[1]"));
             cancelButton.click();
-        } catch (NoSuchElementException exception) {
+        } catch (NoSuchElementException | ElementNotInteractableException exception) {
             //TODO: прикрутить логгер
+            // NoSuchElementException появляется если поп апа с донатом нет в Chrome.
+            // ElementNotInteractableException появляется по тем же причинам в Firefox.
         }
 
         return this;

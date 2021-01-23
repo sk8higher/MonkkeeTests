@@ -25,6 +25,7 @@ public class DriverFactory {
                 FirefoxOptions firefoxOptions = new FirefoxOptions();
                 firefoxOptions.setHeadless(true);
                 driver = new FirefoxDriver(firefoxOptions);
+                driver.manage().window().fullscreen();
                 break;
         }
         return driver;
