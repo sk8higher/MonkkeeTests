@@ -1,14 +1,16 @@
 package pages;
 
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
+
+import java.util.concurrent.TimeUnit;
 
 public class LoginPage extends BasePage {
     public WebDriver driver;
+
+    private Alert alert;
 
     @FindBy(id = "login")
     private WebElement usernameField;
@@ -16,7 +18,7 @@ public class LoginPage extends BasePage {
     @FindBy(id = "password")
     private WebElement passwordField;
 
-    @FindBy(xpath = "//*[@type = 'submit']")
+    @FindBy(xpath = "//*[@type='submit']")
     private WebElement loginButton;
 
     public LoginPage(WebDriver driver) {
@@ -37,7 +39,19 @@ public class LoginPage extends BasePage {
 
     public LoginPage login() {
         loginButton.click();
-        getWait().until(ExpectedConditions.urlMatches("https://my.monkkee.com/#/entries"));
+        return this;
+    }
+
+    public LoginPage checkDonationAlert() {
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
+        try {
+            WebElement cancelButton = driver.findElement(By.xpath("//button[@custom-modal-close='login()']//div[1]"));
+            cancelButton.click();
+        } catch (NoSuchElementException exception) {
+            //TODO: прикрутить логгер
+        }
+
         return this;
     }
 }

@@ -18,8 +18,9 @@ public class LoginTest extends BaseTest {
         loginPage = new LoginPage(driver);
 
         loginPage.enterUsername()
-                 .enterPassword()
-                 .login();
+                .enterPassword()
+                .login()
+                .checkDonationAlert();
 
         Assert.assertEquals(driver.getCurrentUrl(), "https://my.monkkee.com/#/entries");
     }
