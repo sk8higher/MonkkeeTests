@@ -4,13 +4,11 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
-
-import java.util.concurrent.TimeUnit;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class LoginPage extends BasePage {
     public WebDriver driver;
-
-    private Alert alert;
 
     @FindBy(id = "login")
     private WebElement usernameField;
@@ -43,15 +41,19 @@ public class LoginPage extends BasePage {
     }
 
     public LoginPage checkDonationAlert() {
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-
         try {
-            WebElement cancelButton = driver.findElement(By.xpath("//button[@custom-modal-close='login()']//div[1]"));
+            WebDriverWait wait = new WebDriverWait(driver, 10);
+            wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[text()='Cancel']")));
+
+            WebElement cancelButton = driver.findElement(By.xpath("//div[text()='Cancel']"));
+
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", cancelButton);
+
             cancelButton.click();
-        } catch (NoSuchElementException | ElementNotInteractableException exception) {
-            //TODO: прикрутить логгер
-            // NoSuchElementException появляется если поп апа с донатом нет в Chrome.
-            // ElementNotInteractableException появляется по тем же причинам в Firefox.
+        } catch (NoSuchElementException exception) {
+            //TODO: прикрутить логгер, chrome
+        } catch (TimeoutException exception) {
+            //TODO: лог, firefox
         }
 
         return this;
