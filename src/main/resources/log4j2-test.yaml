@@ -2,7 +2,7 @@
 #https://logging.apache.org/log4j/2.x/manual/configuration.html
 
 Configuration:
-  status: DEBUG
+  status: INFO
   Properties:
     Property:
       - name: "DefaultPattern"
