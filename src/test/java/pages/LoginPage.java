@@ -47,7 +47,7 @@ public class LoginPage extends BasePage {
     public LoginPage login() {
         loginButton.click();
 
-        log.info("Clicked login buttton");
+        log.info("Clicked login button");
 
         return this;
     }
