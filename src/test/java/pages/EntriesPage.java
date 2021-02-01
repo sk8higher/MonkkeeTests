@@ -46,9 +46,7 @@ public class EntriesPage extends BasePage {
 
     public EntriesPage createEntry() {
         createEntryButton.click();
-
         log.info("Clicked create entry button");
-
         return this;
     }
 
@@ -57,39 +55,28 @@ public class EntriesPage extends BasePage {
         textBox.sendKeys(text);
 
         log.info("Typed in " + text);
-
         return this;
     }
 
     public EntriesPage deleteAllEntries() {
         selectAllEntriesCheckbox.click();
-
         log.info("Selected all entries");
-
         deleteEntryButton.click();
-
         driver.switchTo().alert().accept();
-
         log.info("Deleted all entries");
-
         return this;
     }
 
     public boolean findReturnButton() {
         WebDriverWait wait = new WebDriverWait(driver, 5);
-
         log.info("Waiting for new entry page to load");
-
         WebElement returnButton = wait.until(ExpectedConditions.elementToBeClickable(By.id("back-to-overview")));
-
         return returnButton.isDisplayed();
     }
 
     public boolean isThereNoEntries() {
         WebElement element = driver.findElement(By.xpath("//div[text()='No entries found']"));
-
         log.info("Finding the 'No entries found paragraph'");
-
         return element.isEnabled();
     }
 }
