@@ -2,8 +2,9 @@ package tests;
 
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.WebDriver;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 import utils.driverfactory.DriverFactory;
 
@@ -11,7 +12,7 @@ import utils.driverfactory.DriverFactory;
 public class BaseTest {
     public WebDriver driver;
 
-    @BeforeTest
+    @BeforeClass
     @Parameters("browser")
     public void beforeTest(String browser) {
         driver = DriverFactory.getDriver(browser);
@@ -19,9 +20,16 @@ public class BaseTest {
         log.info("Initialized " + browser);
     }
 
-    @AfterTest
+    @BeforeMethod
+    public void beforeMethod() {
+        driver.get("https://my.monkkee.com/#/");
+
+        log.info("Opened the page");
+    }
+
+    @AfterClass
     public void teardown() {
-        if(driver != null) {
+        if (driver != null) {
             driver.quit();
 
             log.info("Exited browser");
