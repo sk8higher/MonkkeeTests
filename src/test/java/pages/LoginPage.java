@@ -1,5 +1,6 @@
 package pages;
 
+import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -7,6 +8,8 @@ import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+
+@Log4j2
 public class LoginPage extends BasePage {
     public WebDriver driver;
 
@@ -27,31 +30,40 @@ public class LoginPage extends BasePage {
 
     public LoginPage enterUsername() {
         usernameField.sendKeys(getEMAIL());
+
+        log.info("Entered login username");
+
         return this;
     }
 
     public LoginPage enterPassword() {
         passwordField.sendKeys(getPASSWORD());
+
+        log.info("Entered password");
+
         return this;
     }
 
     public LoginPage login() {
         loginButton.click();
+
+        log.info("Clicked login button");
+
         return this;
     }
 
     public LoginPage checkDonationAlert() {
         try {
+            log.info("Checking for donation alert...");
+
             WebDriverWait wait = new WebDriverWait(driver, 10);
             WebElement cancelButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[text()='Cancel']")));
 
             ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", cancelButton);
 
             cancelButton.click();
-        } catch (NoSuchElementException exception) {
-            //TODO: прикрутить логгер, chrome
-        } catch (TimeoutException exception) {
-            //TODO: лог, firefox
+        } catch (NoSuchElementException | TimeoutException exception) {
+            log.warn("Donation alert hasn't appeared");
         }
 
         return this;
