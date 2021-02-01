@@ -43,9 +43,7 @@ public class LoginPage extends BasePage {
     public LoginPage checkDonationAlert() {
         try {
             WebDriverWait wait = new WebDriverWait(driver, 10);
-            wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[text()='Cancel']")));
-
-            WebElement cancelButton = driver.findElement(By.xpath("//div[text()='Cancel']"));
+            WebElement cancelButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[text()='Cancel']")));
 
             ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", cancelButton);
 
