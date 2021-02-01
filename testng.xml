@@ -4,12 +4,17 @@
         <parameter name="browser" value="Chrome"/>
         <classes>
             <class name="tests.LoginTest"/>
+            <class name="tests.CreateEntryTest"/>
+            <class name="tests.DeleteAllEntriesTest"/>
         </classes>
     </test>
+
     <test name="FirefoxTests">
         <parameter name="browser" value="Firefox"/>
         <classes>
             <class name="tests.LoginTest"/>
+            <class name="tests.CreateEntryTest"/>
+            <class name="tests.DeleteAllEntriesTest"/>
         </classes>
     </test>
 </suite>
