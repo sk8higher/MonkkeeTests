@@ -2,8 +2,10 @@ package pages;
 
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
@@ -59,11 +61,19 @@ public class EntriesPage extends BasePage {
     }
 
     public EntriesPage deleteAllEntries() {
-        selectAllEntriesCheckbox.click();
+        Actions actions = new Actions(driver);
+
+        actions.moveToElement(selectAllEntriesCheckbox).click().perform();
         log.info("Selected all entries");
         deleteEntryButton.click();
         driver.switchTo().alert().accept();
         log.info("Deleted all entries");
+        return this;
+    }
+
+    public EntriesPage returnToHomePage() {
+        ((JavascriptExecutor) driver).executeScript("window.history.go(-1)");
+        log.info("Returned to homepage");
         return this;
     }
 
