@@ -2,7 +2,6 @@ package pages;
 
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -52,32 +51,18 @@ public class EntriesPage extends BasePage {
         return this;
     }
 
-    public EntriesPage typeInEntry(String text) {
-        WebElement textBox = driver.findElement(By.id("editable"));
-        textBox.sendKeys(text);
-
-        log.info("Typed in " + text);
-        return this;
-    }
-
     public EntriesPage deleteAllEntries() {
         Actions actions = new Actions(driver);
-
         actions.moveToElement(selectAllEntriesCheckbox).click().perform();
         log.info("Selected all entries");
+
         deleteEntryButton.click();
         driver.switchTo().alert().accept();
         log.info("Deleted all entries");
         return this;
     }
 
-    public EntriesPage returnToHomePage() {
-        ((JavascriptExecutor) driver).executeScript("window.history.go(-1)");
-        log.info("Returned to homepage");
-        return this;
-    }
-
-    public boolean findReturnButton() {
+    public boolean isReturnButtonDisplayed() {
         WebDriverWait wait = new WebDriverWait(driver, 5);
         log.info("Waiting for new entry page to load");
         WebElement returnButton = wait.until(ExpectedConditions.elementToBeClickable(By.id("back-to-overview")));
@@ -85,8 +70,8 @@ public class EntriesPage extends BasePage {
     }
 
     public boolean isThereNoEntries() {
-        WebElement element = driver.findElement(By.xpath("//div[text()='No entries found']"));
+        WebElement paragraph = driver.findElement(By.xpath("//div[text()='No entries found']"));
         log.info("Finding the 'No entries found paragraph'");
-        return element.isEnabled();
+        return paragraph.isEnabled();
     }
 }

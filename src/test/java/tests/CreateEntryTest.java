@@ -16,6 +16,6 @@ public class CreateEntryTest extends BaseTest {
         entriesPage.login()
                 .createEntry();
 
-        Assert.assertTrue(entriesPage.findReturnButton());
+        Assert.assertTrue(entriesPage.isReturnButtonDisplayed());
     }
 }
