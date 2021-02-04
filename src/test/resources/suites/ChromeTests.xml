@@ -1,0 +1,11 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="MonkkeeChromeTests" parallel="tests" thread-count="10">
+    <test name="ChromeTests">
+        <parameter name="browser" value="Chrome"/>
+        <classes>
+            <class name="tests.LoginTest"/>
+            <class name="tests.CreateEntryTest"/>
+            <class name="tests.DeleteAllEntriesTest"/>
+        </classes>
+    </test>
+</suite>
