@@ -11,7 +11,7 @@ public class CreateEntryTest extends BaseTest {
 
     @Test(description = "Create an entry", groups = {"entrypage"}, priority = 1)
     public void createEntryTest() {
-        entriesPage = new EntriesPage(driver);
+        entriesPage = new EntriesPage(eventFiringWebDriver);
 
         entriesPage.login()
                 .createEntry();

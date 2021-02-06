@@ -1,5 +1,9 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
 <suite name="MonkkeeFirefoxTests" parallel="tests" thread-count="10">
+    <listeners>
+        <listener class-name="utils.listeners.TestNGListener"/>
+    </listeners>
+
     <test name="FirefoxTests">
         <parameter name="browser" value="Firefox"/>
         <classes>

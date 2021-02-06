@@ -11,7 +11,7 @@ public class DeleteAllEntriesTest extends BaseTest {
 
     @Test(description = "Delete all entries", groups = {"entrypage"}, priority = 2)
     public void deleteAllEntriesTest() {
-        entriesPage = new EntriesPage(driver);
+        entriesPage = new EntriesPage(eventFiringWebDriver);
 
         entriesPage.login()
                 .deleteAllEntries();
