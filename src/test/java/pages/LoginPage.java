@@ -30,25 +30,19 @@ public class LoginPage extends BasePage {
 
     public LoginPage enterUsername() {
         usernameField.sendKeys(getEMAIL());
-
         log.info("Entered login username");
-
         return this;
     }
 
     public LoginPage enterPassword() {
         passwordField.sendKeys(getPASSWORD());
-
         log.info("Entered password");
-
         return this;
     }
 
     public LoginPage login() {
         loginButton.click();
-
         log.info("Clicked login button");
-
         return this;
     }
 
