@@ -2,6 +2,7 @@
 <suite name="MonkkeeFirefoxTests" parallel="tests" thread-count="10">
     <listeners>
         <listener class-name="utils.listeners.TestNGListener"/>
+        <listener class-name="utils.listeners.AnnotationTransformer"/>
     </listeners>
 
     <test name="FirefoxTests">
