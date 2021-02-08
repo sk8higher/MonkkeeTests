@@ -11,7 +11,7 @@ public class LoginTest extends BaseTest {
 
     @Test(description = "Login test", priority = 1)
     public void loginTest() {
-        loginPage = new LoginPage(driver);
+        loginPage = new LoginPage(eventFiringWebDriver);
 
         loginPage.enterUsername()
                 .enterPassword()
@@ -20,6 +20,6 @@ public class LoginTest extends BaseTest {
 
         log.info("Tried to log in");
 
-        Assert.assertEquals(driver.getCurrentUrl(), "https://my.monkkee.com/#/entries");
+        Assert.assertEquals(eventFiringWebDriver.getCurrentUrl(), "https://my.monkkee.com/#/entries");
     }
 }
