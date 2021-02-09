@@ -24,6 +24,9 @@ public class EntriesPage extends BasePage {
     @FindBy(xpath = "//input[@title='Select all']")
     private WebElement selectAllEntriesCheckbox;
 
+    @FindBy(xpath = "//a[@href='#/settings/locale']//i")
+    private WebElement goToSettingsButton;
+
     public EntriesPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(new AjaxElementLocatorFactory(driver, getWAITER_TIME()), this);
@@ -59,6 +62,12 @@ public class EntriesPage extends BasePage {
         deleteEntryButton.click();
         driver.switchTo().alert().accept();
         log.info("Deleted all entries");
+        return this;
+    }
+
+    public EntriesPage goToSettings() {
+        goToSettingsButton.click();
+        log.info("Go to setting button clicked");
         return this;
     }
 
