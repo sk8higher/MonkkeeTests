@@ -14,6 +14,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 @Log4j2
 public class EntriesPage extends BasePage {
     public WebDriver driver;
+    private WebDriverWait wait;
 
     @FindBy(id = "create-entry")
     private WebElement createEntryButton;
@@ -23,6 +24,9 @@ public class EntriesPage extends BasePage {
 
     @FindBy(xpath = "//input[@title='Select all']")
     private WebElement selectAllEntriesCheckbox;
+
+    @FindBy(xpath = "//button[text()[normalize-space()='Logout']]")
+    private WebElement logoutButton;
 
     public EntriesPage(WebDriver driver) {
         super(driver);
@@ -59,6 +63,16 @@ public class EntriesPage extends BasePage {
         deleteEntryButton.click();
         driver.switchTo().alert().accept();
         log.info("Deleted all entries");
+        return this;
+    }
+
+    public EntriesPage logout() {
+        logoutButton.click();
+        log.info("Logout");
+
+        wait = new WebDriverWait(driver, getWAITER_TIME());
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[text()='Login']")));
+
         return this;
     }
 
