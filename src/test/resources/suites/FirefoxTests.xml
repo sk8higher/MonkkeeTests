@@ -13,6 +13,7 @@
             <class name="tests.DeleteAllEntriesTest"/>
             <class name="tests.SelectDeutschLocaleTest"/>
             <class name="tests.TypeInEditorTest"/>
+            <class name="tests.CheckEntryContentFromHomepageTest"/>
         </classes>
     </test>
 </suite>
