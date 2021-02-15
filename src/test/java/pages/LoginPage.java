@@ -13,10 +13,10 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class LoginPage extends BasePage {
     public WebDriver driver;
 
-    @FindBy(id = "login")
+    @FindBy(css = "input#login")
     private WebElement usernameField;
 
-    @FindBy(id = "password")
+    @FindBy(css = "input#password")
     private WebElement passwordField;
 
     @FindBy(xpath = "//*[@type='submit']")
@@ -29,20 +29,36 @@ public class LoginPage extends BasePage {
     }
 
     public LoginPage enterUsername() {
-        usernameField.sendKeys(getEMAIL());
-        log.info("Entered login username");
+        try {
+            usernameField.sendKeys(getEMAIL());
+            log.info("Entered login username");
+        } catch (ElementNotInteractableException exception) {
+            log.error("Caught Element Not Interactable");
+        }
+
         return this;
     }
 
     public LoginPage enterPassword() {
-        passwordField.sendKeys(getPASSWORD());
-        log.info("Entered password");
+        try {
+            passwordField.sendKeys(getPASSWORD());
+            log.info("Entered password");
+        } catch (ElementNotInteractableException exception) {
+            log.error("Caught Element Not Interactable");
+        }
+
         return this;
     }
 
     public LoginPage login() {
-        loginButton.click();
-        log.info("Clicked login button");
+        try {
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", loginButton);
+            loginButton.click();
+            log.info("Clicked login button");
+        } catch (ElementNotInteractableException exception) {
+            log.error("Caught Element Not Interactable");
+        }
+
         return this;
     }
 
