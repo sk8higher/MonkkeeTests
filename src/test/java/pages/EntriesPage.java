@@ -15,6 +15,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 @Log4j2
 public class EntriesPage extends BasePage {
     public WebDriver driver;
+    private WebDriverWait wait;
 
     @FindBy(id = "create-entry")
     private WebElement createEntryButton;
@@ -24,6 +25,9 @@ public class EntriesPage extends BasePage {
 
     @FindBy(xpath = "//input[@title='Select all']")
     private WebElement selectAllEntriesCheckbox;
+
+    @FindBy(xpath = "//button[text()[normalize-space()='Logout']]")
+    private WebElement logoutButton;
 
     @FindBy(xpath = "//a[@href='#/settings/locale']//i")
     private WebElement goToSettingsButton;
@@ -66,6 +70,16 @@ public class EntriesPage extends BasePage {
         return this;
     }
 
+    public EntriesPage logout() {
+        logoutButton.click();
+        log.info("Logout");
+
+        wait = new WebDriverWait(driver, getWAITER_TIME());
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[text()='Login']")));
+
+        return this;
+    }
+  
     public EntriesPage goToSettings() {
         goToSettingsButton.click();
         log.info("Go to setting button clicked");
@@ -83,6 +97,7 @@ public class EntriesPage extends BasePage {
         }
 
         return exist;
+
     }
 
     public boolean isReturnButtonDisplayed() {
