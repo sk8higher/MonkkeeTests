@@ -19,10 +19,10 @@ public class SelectDeutschLocaleTest extends BaseTest {
 
         settingsPage.changeLocaleTo("Deutsch");
 
-        Assert.assertEquals(settingsPage.getAlertText(), "Deine Spracheinstellung wurde erfolgreich geändert");
+        Assert.assertTrue(settingsPage.isLocaleChangedToDeutsch());
 
         settingsPage.changeLocaleTo("English");
 
-        Assert.assertEquals(settingsPage.getAlertText(), "Your language has been changed successfully");
+        Assert.assertTrue(settingsPage.isLocaleChangedToEnglish());
     }
 }

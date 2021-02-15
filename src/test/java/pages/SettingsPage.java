@@ -33,12 +33,37 @@ public class SettingsPage extends BasePage {
         okButton.click();
         log.info("Clicked OK button");
         return this;
-
     }
 
     public String getAlertText() {
         WebElement successAlert = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='alert alert-success']")));
         log.info("The alert text is : " + successAlert.getText());
         return successAlert.getText();
+    }
+
+    public String getParagraphText() {
+        WebElement paragraph = wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("explanation")));
+        log.info("The paragraph text is : " + paragraph.getText());
+        return paragraph.getText();
+    }
+
+    public boolean isLocaleChangedToDeutsch() {
+        String alertText = getAlertText();
+        String paragraphText = getParagraphText();
+
+        String neededAlertText = "Deine Spracheinstellung wurde erfolgreich geändert";
+        String neededParagraphText = "Hier kannst du die Sprache der Bedienoberfläche anpassen. Wähle entweder eine konkrete Sprache oder die Option \"Defaultsprache\", um die Sprache deines Browsers zu verwenden.";
+
+        return alertText.equals(neededAlertText) && paragraphText.equals(neededParagraphText);
+    }
+
+    public boolean isLocaleChangedToEnglish() {
+        String alertText = getAlertText();
+        String paragraphText = getParagraphText();
+
+        String neededAlertText = "Your language has been changed successfully";
+        String neededParagraphTest = "Here you can configure the language of the user interface. Choose either a concrete language or the option \"Default language\" to use the language of your browser.";
+
+        return alertText.equals(neededAlertText) && paragraphText.equals(neededParagraphTest);
     }
 }
