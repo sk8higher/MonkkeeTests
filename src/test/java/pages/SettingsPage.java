@@ -41,19 +41,17 @@ public class SettingsPage extends BasePage {
         return successAlert.getText();
     }
 
-    public String getParagraphText() {
-        WebElement paragraph = wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("explanation")));
-        log.info("The paragraph text is : " + paragraph.getText());
-        return paragraph.getText();
-    }
-
     public boolean isLocaleChangedToDeutsch() {
         String alertText = getAlertText();
-        String paragraphText = getParagraphText();
-
         String neededAlertText = "Deine Spracheinstellung wurde erfolgreich geändert";
-        String neededParagraphText = "Hier kannst du die Sprache der Bedienoberfläche anpassen. Wähle entweder eine konkrete Sprache oder die Option \"Defaultsprache\", um die Sprache deines Browsers zu verwenden.";
 
-        return alertText.equals(neededAlertText) && paragraphText.equals(neededParagraphText);
+        return alertText.equals(neededAlertText);
+    }
+
+    public boolean isLocaleChangedToEnglish() {
+        String alertText = getAlertText();
+        String neededAlertText = "Your language has been changed successfully";
+
+        return alertText.equals(neededAlertText);
     }
 }

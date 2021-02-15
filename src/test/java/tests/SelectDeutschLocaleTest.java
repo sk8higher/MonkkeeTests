@@ -9,7 +9,7 @@ public class SelectDeutschLocaleTest extends BaseTest {
     private EntriesPage entriesPage;
     private SettingsPage settingsPage;
 
-    @Test(description = "Try to change locale to Deutsch", groups = {"settingspage"}, priority = 2)
+    @Test(description = "Try to change locale to Deutsch", groups = {"settingspage"}, priority = 4)
     public void changeLocaleTest() {
         entriesPage = new EntriesPage(eventFiringWebDriver);
         settingsPage = new SettingsPage(eventFiringWebDriver);
@@ -20,5 +20,9 @@ public class SelectDeutschLocaleTest extends BaseTest {
         settingsPage.changeLocaleTo("Deutsch");
 
         Assert.assertTrue(settingsPage.isLocaleChangedToDeutsch());
+
+        settingsPage.changeLocaleTo("English");
+
+        Assert.assertTrue(settingsPage.isLocaleChangedToEnglish());
     }
 }
