@@ -56,14 +56,4 @@ public class SettingsPage extends BasePage {
 
         return alertText.equals(neededAlertText) && paragraphText.equals(neededParagraphText);
     }
-
-    public boolean isLocaleChangedToEnglish() {
-        String alertText = getAlertText();
-        String paragraphText = getParagraphText();
-
-        String neededAlertText = "Your language has been changed successfully";
-        String neededParagraphTest = "Here you can configure the language of the user interface. Choose either a concrete language or the option \"Default language\" to use the language of your browser.";
-
-        return alertText.equals(neededAlertText) && paragraphText.equals(neededParagraphTest);
-    }
 }
