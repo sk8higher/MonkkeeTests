@@ -2,6 +2,7 @@ package pages;
 
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -27,6 +28,9 @@ public class EntriesPage extends BasePage {
 
     @FindBy(xpath = "//button[text()[normalize-space()='Logout']]")
     private WebElement logoutButton;
+
+    @FindBy(xpath = "//a[@href='#/settings/locale']//i")
+    private WebElement goToSettingsButton;
 
     public EntriesPage(WebDriver driver) {
         super(driver);
@@ -74,6 +78,26 @@ public class EntriesPage extends BasePage {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[text()='Login']")));
 
         return this;
+    }
+  
+    public EntriesPage goToSettings() {
+        goToSettingsButton.click();
+        log.info("Go to setting button clicked");
+        return this;
+    }
+
+    public boolean isEntryExist() {
+        boolean exist = false;
+
+        try {
+            WebElement entry = driver.findElement(By.xpath("//div[text()='Hello World']"));
+            exist = true;
+        } catch (NoSuchElementException exception) {
+            log.info("There is no entry with this text");
+        }
+
+        return exist;
+
     }
 
     public boolean isReturnButtonDisplayed() {
