@@ -1,7 +1,7 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
 <suite name="MonkkeeTests" parallel="tests" thread-count="10">
     <suite-files>
-<!--        <suite-file path="src/test/resources/suites/ChromeTests.xml"/>-->
+        <suite-file path="src/test/resources/suites/ChromeTests.xml"/>
         <suite-file path="src/test/resources/suites/FirefoxTests.xml"/>
     </suite-files>
 </suite>
