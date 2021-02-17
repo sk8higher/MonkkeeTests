@@ -13,6 +13,7 @@
             <class name="tests.DeleteAllEntriesTest"/>
             <class name="tests.LogoutTest"/>
             <class name="tests.TypeInEditorTest"/>
+            <class name="tests.GoToHomepageTest"/>
         </classes>
     </test>
 </suite>
