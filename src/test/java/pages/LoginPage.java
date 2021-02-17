@@ -8,6 +8,8 @@ import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.ArrayList;
+
 
 @Log4j2
 public class LoginPage extends BasePage {
@@ -21,6 +23,9 @@ public class LoginPage extends BasePage {
 
     @FindBy(xpath = "//*[@type='submit']")
     private WebElement loginButton;
+
+    @FindBy(xpath = "(//a[@class='footer-link'])[3]")
+    private WebElement faqButton;
 
     public LoginPage(WebDriver driver) {
         super(driver);
@@ -77,5 +82,25 @@ public class LoginPage extends BasePage {
         }
 
         return this;
+    }
+
+    public LoginPage goToFaqPage() {
+        faqButton.click();
+        log.info("Clicked the FAQ button");
+        return this;
+    }
+
+    public LoginPage switchToAnotherTab() {
+        ArrayList<String> tabs = new ArrayList<>(driver.getWindowHandles());
+        driver.switchTo().window(tabs.get(1));
+        log.info("Switched to another tab");
+        return this;
+    }
+
+    public boolean isFaqParagraphVisible() {
+        WebDriverWait wait = new WebDriverWait(driver, 5);
+        WebElement paragraph = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("section#faq>div>h1")));
+        log.info("Found a FAQ paragraph");
+        return paragraph.isDisplayed();
     }
 }
