@@ -23,14 +23,17 @@ public class LoginPage extends BasePage {
     @FindBy(xpath = "//*[@type='submit']")
     private WebElement loginButton;
 
-    @FindBy(xpath = "(//a[@class='footer-link'])[3]")
-    private WebElement faqButton;
+    @FindBy(xpath = "//a[@href='https://www.monkkee.com/en/blog/']")
+    private WebElement blogButton;
 
     @FindBy(xpath = "//a[@class='footer-link']")
     private WebElement homepageButton;
 
     @FindBy(xpath = "(//a[@class='footer-link'])[2]")
     private WebElement supportButton;
+  
+    @FindBy(xpath = "(//a[@class='footer-link'])[3]")
+    private WebElement faqButton;
 
     @FindBy(xpath = "//a[@href='/account/password_reminder']")
     private WebElement sendPasswordReminderButton;
@@ -92,6 +95,10 @@ public class LoginPage extends BasePage {
         return this;
     }
 
+    public LoginPage goToBlogPage() {
+        blogButton.click();
+        log.info("Clicked the Blog button");
+    }
 
     public LoginPage goToFaqPage() {
         faqButton.click();
@@ -108,6 +115,23 @@ public class LoginPage extends BasePage {
         log.info("Clicked Support button");
         return this;
     }
+        
+    public LoginPage goToPasswordRemindPage() {
+        WebDriverWait wait = new WebDriverWait(driver, 5);
+        String randomEmail = "hello@world.com";
+
+        sendPasswordReminderButton.click();
+        log.info("Clicked remind password button");
+
+        WebElement emailField = wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//input[@placeholder='Email']"))));
+        emailField.sendKeys(randomEmail);
+        log.info("Typed in email field");
+
+        WebElement okButton = driver.findElement(By.xpath("//input[@type='submit']"));
+        okButton.click();
+        log.info("Clicked OK button");
+        return this;
+    }
 
     public LoginPage switchToAnotherTab() {
         ArrayList<String> tabs = new ArrayList<>(driver.getWindowHandles());
@@ -116,6 +140,12 @@ public class LoginPage extends BasePage {
         return this;
     }
 
+    public boolean isBlogParagraphVisible() {
+        WebDriverWait wait = new WebDriverWait(driver, 5);
+        WebElement paragraph = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h1[text()='Blog']")));
+        log.info("Found a Blog paragraph");
+    }
+  
     public boolean isFaqParagraphVisible() {
         WebDriverWait wait = new WebDriverWait(driver, 5);
         WebElement paragraph = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("section#faq>div>h1")));
@@ -132,23 +162,6 @@ public class LoginPage extends BasePage {
         WebDriverWait wait = new WebDriverWait(driver, 5);
         WebElement paragraph = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h1[text()[normalize-space()='Support']]")));
         log.info("Found a Support paragraph");
-    }
-      
-    public LoginPage goToPasswordRemindPage() {
-        WebDriverWait wait = new WebDriverWait(driver, 5);
-        String randomEmail = "hello@world.com";
-
-        sendPasswordReminderButton.click();
-        log.info("Clicked remind password button");
-
-        WebElement emailField = wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//input[@placeholder='Email']"))));
-        emailField.sendKeys(randomEmail);
-        log.info("Typed in email field");
-
-        WebElement okButton = driver.findElement(By.xpath("//input[@type='submit']"));
-        okButton.click();
-        log.info("Clicked OK button");
-        return this;
     }
 
     public boolean isLoginHintSent() {
