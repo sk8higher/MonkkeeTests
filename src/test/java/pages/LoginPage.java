@@ -23,6 +23,9 @@ public class LoginPage extends BasePage {
     @FindBy(xpath = "//*[@type='submit']")
     private WebElement loginButton;
 
+    @FindBy(xpath = "//a[@class='footer-link']")
+    private WebElement homepageButton;
+
     @FindBy(xpath = "(//a[@class='footer-link'])[2]")
     private WebElement supportButton;
 
@@ -86,6 +89,11 @@ public class LoginPage extends BasePage {
         return this;
     }
 
+    public LoginPage goToHomepage() {
+        homepageButton.click();
+        log.info("Clicked the homepage button");
+    }
+      
     public LoginPage goToSupportPage() {
         supportButton.click();
         log.info("Clicked Support button");
@@ -99,10 +107,17 @@ public class LoginPage extends BasePage {
         return this;
     }
 
+    public boolean isHomepageParagraphVisible() {
+        WebDriverWait wait = new WebDriverWait(driver, 5);
+        WebElement paragraph = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[text()='monkkee – the safest place for your thoughts']")));
+        log.info("Found a Homepage paragraph");
+    }
+  
     public boolean isSupportParagraphVisible() {
         WebDriverWait wait = new WebDriverWait(driver, 5);
         WebElement paragraph = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h1[text()[normalize-space()='Support']]")));
         log.info("Found a Support paragraph");
+    }
       
     public LoginPage goToPasswordRemindPage() {
         WebDriverWait wait = new WebDriverWait(driver, 5);
