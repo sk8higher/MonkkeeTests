@@ -8,6 +8,8 @@ import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.ArrayList;
+
 @Log4j2
 public class LoginPage extends BasePage {
     public WebDriver driver;
@@ -20,6 +22,9 @@ public class LoginPage extends BasePage {
 
     @FindBy(xpath = "//*[@type='submit']")
     private WebElement loginButton;
+
+    @FindBy(xpath = "(//a[@class='footer-link'])[2]")
+    private WebElement supportButton;
 
     @FindBy(xpath = "//a[@href='/account/password_reminder']")
     private WebElement sendPasswordReminderButton;
@@ -81,6 +86,24 @@ public class LoginPage extends BasePage {
         return this;
     }
 
+    public LoginPage goToSupportPage() {
+        supportButton.click();
+        log.info("Clicked Support button");
+        return this;
+    }
+
+    public LoginPage switchToAnotherTab() {
+        ArrayList<String> tabs = new ArrayList<>(driver.getWindowHandles());
+        driver.switchTo().window(tabs.get(1));
+        log.info("Switched to another tab");
+        return this;
+    }
+
+    public boolean isSupportParagraphVisible() {
+        WebDriverWait wait = new WebDriverWait(driver, 5);
+        WebElement paragraph = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h1[text()[normalize-space()='Support']]")));
+        log.info("Found a Support paragraph");
+      
     public LoginPage goToPasswordRemindPage() {
         WebDriverWait wait = new WebDriverWait(driver, 5);
         String randomEmail = "hello@world.com";
