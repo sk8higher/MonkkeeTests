@@ -8,8 +8,6 @@ import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.ArrayList;
-
 @Log4j2
 public class LoginPage extends BasePage {
     public WebDriver driver;
@@ -98,16 +96,19 @@ public class LoginPage extends BasePage {
     public LoginPage goToBlogPage() {
         blogButton.click();
         log.info("Clicked the Blog button");
+        return this;
     }
 
     public LoginPage goToFaqPage() {
         faqButton.click();
         log.info("Clicked the FAQ button");
+        return this;
     }
   
     public LoginPage goToHomepage() {
         homepageButton.click();
         log.info("Clicked the homepage button");
+        return this;
     }
       
     public LoginPage goToSupportPage() {
@@ -133,40 +134,38 @@ public class LoginPage extends BasePage {
         return this;
     }
 
-    public LoginPage switchToAnotherTab() {
-        ArrayList<String> tabs = new ArrayList<>(driver.getWindowHandles());
-        driver.switchTo().window(tabs.get(1));
-        log.info("Switched to another tab");
-        return this;
-    }
-
     public boolean isBlogParagraphVisible() {
         WebDriverWait wait = new WebDriverWait(driver, 5);
         WebElement paragraph = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h1[text()='Blog']")));
         log.info("Found a Blog paragraph");
+        return paragraph.isDisplayed();
     }
   
     public boolean isFaqParagraphVisible() {
         WebDriverWait wait = new WebDriverWait(driver, 5);
         WebElement paragraph = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("section#faq>div>h1")));
         log.info("Found a FAQ paragraph");
+        return paragraph.isDisplayed();
     }
   
     public boolean isHomepageParagraphVisible() {
         WebDriverWait wait = new WebDriverWait(driver, 5);
         WebElement paragraph = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[text()='monkkee – the safest place for your thoughts']")));
         log.info("Found a Homepage paragraph");
+        return paragraph.isDisplayed();
     }
   
     public boolean isSupportParagraphVisible() {
         WebDriverWait wait = new WebDriverWait(driver, 5);
         WebElement paragraph = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h1[text()[normalize-space()='Support']]")));
         log.info("Found a Support paragraph");
+        return paragraph.isDisplayed();
     }
 
     public boolean isLoginHintSent() {
         WebDriverWait wait = new WebDriverWait(driver, 5);
         WebElement paragraph = wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//h1[text()='Password hint sent']"))));
+        log.info("Login hint sent");
         return paragraph.isDisplayed();
     }
 }
