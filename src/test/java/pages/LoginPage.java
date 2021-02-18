@@ -10,7 +10,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.ArrayList;
 
-
 @Log4j2
 public class LoginPage extends BasePage {
     public WebDriver driver;
@@ -26,6 +25,9 @@ public class LoginPage extends BasePage {
 
     @FindBy(xpath = "(//a[@class='footer-link'])[2]")
     private WebElement supportButton;
+
+    @FindBy(xpath = "//a[@href='/account/password_reminder']")
+    private WebElement sendPasswordReminderButton;
 
     public LoginPage(WebDriver driver) {
         super(driver);
@@ -101,6 +103,27 @@ public class LoginPage extends BasePage {
         WebDriverWait wait = new WebDriverWait(driver, 5);
         WebElement paragraph = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h1[text()[normalize-space()='Support']]")));
         log.info("Found a Support paragraph");
+      
+    public LoginPage goToPasswordRemindPage() {
+        WebDriverWait wait = new WebDriverWait(driver, 5);
+        String randomEmail = "hello@world.com";
+
+        sendPasswordReminderButton.click();
+        log.info("Clicked remind password button");
+
+        WebElement emailField = wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//input[@placeholder='Email']"))));
+        emailField.sendKeys(randomEmail);
+        log.info("Typed in email field");
+
+        WebElement okButton = driver.findElement(By.xpath("//input[@type='submit']"));
+        okButton.click();
+        log.info("Clicked OK button");
+        return this;
+    }
+
+    public boolean isLoginHintSent() {
+        WebDriverWait wait = new WebDriverWait(driver, 5);
+        WebElement paragraph = wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//h1[text()='Password hint sent']"))));
         return paragraph.isDisplayed();
     }
 }
