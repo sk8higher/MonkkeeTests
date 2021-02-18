@@ -8,7 +8,6 @@ import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-
 @Log4j2
 public class LoginPage extends BasePage {
     public WebDriver driver;
@@ -21,6 +20,9 @@ public class LoginPage extends BasePage {
 
     @FindBy(xpath = "//*[@type='submit']")
     private WebElement loginButton;
+
+    @FindBy(xpath = "//a[@href='/account/password_reminder']")
+    private WebElement sendPasswordReminderButton;
 
     public LoginPage(WebDriver driver) {
         super(driver);
@@ -77,5 +79,28 @@ public class LoginPage extends BasePage {
         }
 
         return this;
+    }
+
+    public LoginPage goToPasswordRemindPage() {
+        WebDriverWait wait = new WebDriverWait(driver, 5);
+        String randomEmail = "hello@world.com";
+
+        sendPasswordReminderButton.click();
+        log.info("Clicked remind password button");
+
+        WebElement emailField = wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//input[@placeholder='Email']"))));
+        emailField.sendKeys(randomEmail);
+        log.info("Typed in email field");
+
+        WebElement okButton = driver.findElement(By.xpath("//input[@type='submit']"));
+        okButton.click();
+        log.info("Clicked OK button");
+        return this;
+    }
+
+    public boolean isLoginHintSent() {
+        WebDriverWait wait = new WebDriverWait(driver, 5);
+        WebElement paragraph = wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//h1[text()='Password hint sent']"))));
+        return paragraph.isDisplayed();
     }
 }
