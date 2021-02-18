@@ -23,6 +23,9 @@ public class LoginPage extends BasePage {
     @FindBy(xpath = "//*[@type='submit']")
     private WebElement loginButton;
 
+    @FindBy(xpath = "(//a[@class='footer-link'])[3]")
+    private WebElement faqButton;
+
     @FindBy(xpath = "//a[@class='footer-link']")
     private WebElement homepageButton;
 
@@ -89,6 +92,12 @@ public class LoginPage extends BasePage {
         return this;
     }
 
+
+    public LoginPage goToFaqPage() {
+        faqButton.click();
+        log.info("Clicked the FAQ button");
+    }
+  
     public LoginPage goToHomepage() {
         homepageButton.click();
         log.info("Clicked the homepage button");
@@ -107,6 +116,12 @@ public class LoginPage extends BasePage {
         return this;
     }
 
+    public boolean isFaqParagraphVisible() {
+        WebDriverWait wait = new WebDriverWait(driver, 5);
+        WebElement paragraph = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("section#faq>div>h1")));
+        log.info("Found a FAQ paragraph");
+    }
+  
     public boolean isHomepageParagraphVisible() {
         WebDriverWait wait = new WebDriverWait(driver, 5);
         WebElement paragraph = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[text()='monkkee – the safest place for your thoughts']")));

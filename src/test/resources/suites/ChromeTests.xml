@@ -13,6 +13,7 @@
             <class name="tests.DeleteAllEntriesTest"/>
             <class name="tests.LogoutTest"/>
             <class name="tests.TypeInEditorTest"/>
+            <class name="tests.GoToFaqPageTest"/>
             <class name="tests.GoToHomepageTest"/>
             <class name="tests.GoToSupportPageTest"/>
             <class name="tests.SendPasswordReminderTest"/>
