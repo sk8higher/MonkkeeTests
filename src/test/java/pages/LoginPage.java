@@ -149,8 +149,8 @@ public class LoginPage extends BasePage {
     }
   
     public boolean isHomepageParagraphVisible() {
-        WebDriverWait wait = new WebDriverWait(driver, 5);
-        WebElement paragraph = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[text()='monkkee – the safest place for your thoughts']")));
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        WebElement paragraph = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h1[text()[normalize-space()='Keep a private and free online diary']]")));
         log.info("Found a Homepage paragraph");
         return paragraph.isDisplayed();
     }
