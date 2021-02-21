@@ -1,10 +1,7 @@
 package pages;
 
 import lombok.extern.log4j.Log4j2;
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -15,7 +12,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 @Log4j2
 public class EntriesPage extends BasePage {
     public WebDriver driver;
-    private WebDriverWait wait;
 
     @FindBy(id = "create-entry")
     private WebElement createEntryButton;
@@ -71,10 +67,15 @@ public class EntriesPage extends BasePage {
     }
 
     public EntriesPage logout() {
-        logoutButton.click();
-        log.info("Logout");
+        try {
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", logoutButton);
+            logoutButton.click();
+            log.info("Clicked logout button");
+        } catch (ElementNotInteractableException exception) {
+            log.error("Caught Element Not Interactable");
+        }
 
-        wait = new WebDriverWait(driver, getWAITER_TIME());
+        WebDriverWait wait = new WebDriverWait(driver, getWAITER_TIME());
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[text()='Login']")));
 
         return this;
