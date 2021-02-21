@@ -76,7 +76,7 @@ public class EntriesPage extends BasePage {
         }
 
         WebDriverWait wait = new WebDriverWait(driver, getWAITER_TIME());
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[text()='Login']")));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@type='submit']")));
 
         return this;
     }
