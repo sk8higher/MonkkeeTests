@@ -68,7 +68,6 @@ public class EntriesPage extends BasePage {
 
     public EntriesPage logout() {
         try {
-            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", logoutButton);
             logoutButton.click();
             log.info("Clicked logout button");
         } catch (ElementNotInteractableException exception) {
@@ -76,7 +75,7 @@ public class EntriesPage extends BasePage {
         }
 
         WebDriverWait wait = new WebDriverWait(driver, getWAITER_TIME());
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@type='submit']")));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[text()='Login']")));
 
         return this;
     }
