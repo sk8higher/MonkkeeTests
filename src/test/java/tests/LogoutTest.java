@@ -23,6 +23,8 @@ public class LogoutTest extends BaseTest {
 
         log.info("Tried to log in");
 
+        Assert.assertEquals(eventFiringWebDriver.getCurrentUrl(), "https://my.monkkee.com/#/entries");
+
         entriesPage.logout();
 
         Assert.assertEquals(eventFiringWebDriver.getCurrentUrl(), "https://my.monkkee.com/#/");
